@@ -1,4 +1,4 @@
-## BMS-PROFANITY
+## Go-Profanity-Hindi
 
 ### Author - Suraj Kumar Jha
 
