@@ -1,4 +1,4 @@
-package main
+package go_profanity_hindi
 
 var profanityWords = map[string]int{
 	"r5e":                                   1,

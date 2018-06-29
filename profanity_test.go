@@ -1,4 +1,4 @@
-package main
+package go_profanity_hindi
 
 import (
 	"github.com/stretchr/testify/assert"
