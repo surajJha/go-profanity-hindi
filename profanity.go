@@ -1,4 +1,4 @@
-package go_profanity_hindi
+package profanity
 
 import (
 	"log"
