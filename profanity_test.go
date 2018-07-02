@@ -5,6 +5,15 @@ import (
 	"testing"
 )
 
+func TestCleanPunctuations(t *testing.T) {
+	assert := assert.New(t)
+	inputRegex := "abcd"
+	inputString := "suraj is, a human"
+	replacement := ""
+	cleanedString := cleanPunctuations(inputString, inputRegex, replacement)
+	assert.NotEqual("suraj is a human", cleanedString)
+}
+
 func TestMaskProfanity(t *testing.T) {
 	assert := assert.New(t)
 

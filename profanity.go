@@ -7,9 +7,9 @@ import (
 )
 
 /** RemoveWords: Function removes input words from the dictionary of bad words.
- Input :
+ 	Input :
 		wordsToBeRemoved ([]string) the words to be removed
- Output :
+ 	Output :
 		wordsToBeRemoved ([]string) words that re removed
         err (error) golang error object
 **/
@@ -24,9 +24,9 @@ func RemoveWords(wordsToBeRemoved []string) ([]string, error) {
 }
 
 /** AddWords: Function adds given words to the dictionary of bad words.
- Input :
+ 	Input :
 		words ([]string) the words to be added to the dictionary of bad words
- Output :
+ 	Output :
 		words ([]string) words that have been successfully added to the dictionary
         err (error) golang error object
 **/
@@ -43,9 +43,9 @@ func AddWords(words []string) ([]string, error) {
 }
 
 /** IsStringDirty: Function checks if the given string has a bad word or not.
- Input :
+ 	Input :
 		words (string) the string to be checked
- Output :
+ 	Output :
 		words (bool) boolean result
 **/
 func IsStringDirty(message string) bool {
@@ -61,16 +61,18 @@ func IsStringDirty(message string) bool {
 }
 
 /** MaskProfanity: Function masks bad words present in the input string with masking char.
- Input :
+ 	Input :
 		message (string) the string to be masked
 		maskWith (string) the masking character. eg *
- Output :
+ 	Output :
 		words (bool) boolean result
 **/
 func MaskProfanity(message string, maskWith string) string {
 	result := message
 	for _, value := range strings.Fields(strings.ToLower(message)) {
-		cleanedValue := cleanPunctuations(value)
+		punctuationRegex := "[,:;]"
+		replacement := ""
+		cleanedValue := cleanPunctuations(value, punctuationRegex, replacement)
 		if exists := wordExistsInDictionary(cleanedValue); exists {
 			replacement := ""
 			for i := 0; i < len(cleanedValue); i++ {
@@ -82,19 +84,25 @@ func MaskProfanity(message string, maskWith string) string {
 	return result
 }
 
-func cleanPunctuations(word string) string {
-	reg, err := regexp.Compile("[,:;]")
+/** cleanPunctuations: Function removes punctuation for the given input string
+ 	Input  :
+		word (string) the word to be checked
+ 	Output :
+		result (string) cleaned string
+**/
+func cleanPunctuations(word string, punctuationRegex string, replacement string) string {
+	reg, err := regexp.Compile(punctuationRegex)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return reg.ReplaceAllString(word, "")
+	return reg.ReplaceAllString(word, replacement)
 }
 
 /** wordExistsInDictionary: Function checks if a given word is present in the dictionary
- of bad words.
- Input  :
+ 	of bad words.
+ 	Input  :
 		word (string) the word to be checked
- Output :
+ 	Output :
 		exists (boolean) boolean response
 **/
 func wordExistsInDictionary(word string) bool {
